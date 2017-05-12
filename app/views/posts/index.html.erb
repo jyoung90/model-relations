@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <h1>Posts</h1>
+    <a href="/posts/new">글 작성하기</a>
+    <% @posts.each do |post| %>
+      <div class="well">
+        제목 : <%= post.title %><br>
+        내용 : <%= post.content %><br>
+        작성자 : <%= post.username %><br>
+        언제 : <%= time_ago_in_words(post.created_at) + ' ago' %><br><br>
+        <% post.comments.each do |comment| %>
+          <%= comment.content %><br>
+        <% end %>
+        <form action="/posts/<%= post.id %>/comments" method="POST">
+          <textarea class="form-control" name="content" placeholder="Comment" rows="3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></textarea><br>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    <% end %>
+  </div>
+</div>
