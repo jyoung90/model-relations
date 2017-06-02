@@ -15,9 +15,22 @@ class PostsController < ApplicationController
     post.title = params[:title]
     post.content = params[:content]
     post.user_id = current_user.id
-    post.save
+    
+    if post.save
+      flash[:message] = '글이 작성되었습니다!'
+    else
+      messages = []
 
-    redirect_to '/'
+      post.errors.messages.each_with_index do |msg, idx|
+        messages.push(msg[1][0])
+      end
+
+      @messages = messages.join('\n')
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit

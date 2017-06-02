@@ -1,0 +1,8 @@
+<% if @messages %>
+  // alert('<%= @messages %>');
+  // swal('<%= @messages %>');
+  swal("<%= @messages %>", "", "error")
+<% else %>
+  // 인덱스 페이지로 넘김
+  window.location.href = 'http://localhost:3000/'
+<% end %>
